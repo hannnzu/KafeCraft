@@ -1,4 +1,4 @@
-package com.example.kafecraft.Data
+package com.example.kafecraft.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
