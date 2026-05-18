@@ -5,9 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.kafecraft.data.SessionManager
-import com.example.kafecraft.data.Users
+import com.example.kafecraft.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import kotlin.jvm.java
 
 class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
 
@@ -36,7 +37,7 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
                 }
                 db.child(uid).get()
                     .addOnSuccessListener { snap ->
-                        val user = snap.getValue(Users::class.java)
+                        val user = snap.getValue(User::class.java)
                         sessionManager.saveLoginSession(uid, user?.name ?: "", user?.email ?: email)
                         isLoading = false
                         isSuccess = true
@@ -51,6 +52,7 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
                 error = it.message
             }
     }
+
     fun register(name: String, email: String, pass: String) {
         isLoading = true
         auth.createUserWithEmailAndPassword(email, pass)
@@ -61,7 +63,7 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
                     error = "Gagal mendapat ID"
                     return@addOnSuccessListener
                 }
-                db.child(uid).setValue(Users(name, email))
+                db.child(uid).setValue(User(name, email))
                     .addOnSuccessListener {
                         isLoading = false
                         isSuccess = true
@@ -89,4 +91,5 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
                 error = it.message
             }
     }
+
 }

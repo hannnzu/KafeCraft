@@ -2,7 +2,7 @@ package com.example.kafecraft.data
 
 import com.google.firebase.Timestamp
 
-data class Users(
+data class User(
     val name: String = "",
     val email: String = ""
 )
