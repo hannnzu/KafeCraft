@@ -1,4 +1,8 @@
 package com.example.kafecraft.data
 
-class SessionManager {
+import android.content.Context
+import android.content.SharedPreferences
+
+class SessionManager(context: Context) {
+
 }
