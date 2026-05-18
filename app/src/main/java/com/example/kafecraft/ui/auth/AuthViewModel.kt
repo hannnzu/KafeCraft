@@ -51,6 +51,31 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
                 error = it.message
             }
     }
+    fun register(name: String, email: String, pass: String) {
+        isLoading = true
+        auth.createUserWithEmailAndPassword(email, pass)
+            .addOnSuccessListener { result ->
+                val uid = result.user?.uid
+                if (uid == null) {
+                    isLoading = false
+                    error = "Gagal mendapat ID"
+                    return@addOnSuccessListener
+                }
+                db.child(uid).setValue(Users(name, email))
+                    .addOnSuccessListener {
+                        isLoading = false
+                        isSuccess = true
+                    }
+                    .addOnFailureListener {
+                        isLoading = false
+                        error = it.message ?: "Gagal simpan data"
+                    }
+            }
+            .addOnFailureListener {
+                isLoading = false
+                error = it.message
+            }
+    }
 
     fun sendPassworReset(email: String){
         isLoading = true
