@@ -26,4 +26,17 @@ class AuthViewModel(private val sessionManager: MediaSessionManager) : ViewModel
     fun Login(email:String, password:String){
 
     }
+
+    fun sendPassworReset(email: String){
+        isLoading = true
+        auth.sendPasswordResetEmail(email)
+            .addOnSuccessListener {
+                isLoading = false
+                isSuccess = true
+            }
+            .addOnFailureListener {
+                isLoading = false
+                error = it.message
+            }
+    }
 }
