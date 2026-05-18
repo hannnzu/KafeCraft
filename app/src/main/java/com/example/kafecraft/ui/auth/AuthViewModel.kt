@@ -23,5 +23,7 @@ class AuthViewModel(private val sessionManager: MediaSessionManager) : ViewModel
         isSuccess = false
     }
 
-    fun Login(email:String, password:String){}
+    fun Login(email:String, password:String){
+
+    }
 }
