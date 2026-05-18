@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.kafecraft.data.Users
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
@@ -23,8 +24,32 @@ class AuthViewModel(private val sessionManager: MediaSessionManager) : ViewModel
         isSuccess = false
     }
 
-    fun Login(email:String, password:String){
-
+    fun login(email: String, pass: String) {
+        isLoading = true
+        auth.signInWithEmailAndPassword(email, pass)
+            .addOnSuccessListener { result ->
+                val uid = result.user?.uid
+                if (uid == null) {
+                    isLoading = false
+                    error = "Login gagal"
+                    return@addOnSuccessListener
+                }
+                db.child(uid).get()
+                    .addOnSuccessListener { snap ->
+                        val user = snap.getValue(Users::class.java)
+                        sessionManager.saveLoginSession(uid, user?.name ?: "", user?.email ?: email)
+                        isLoading = false
+                        isSuccess = true
+                    }
+                    .addOnFailureListener {
+                        isLoading = false
+                        error = it.message
+                    }
+            }
+            .addOnFailureListener {
+                isLoading = false
+                error = it.message
+            }
     }
 
     fun sendPassworReset(email: String){
