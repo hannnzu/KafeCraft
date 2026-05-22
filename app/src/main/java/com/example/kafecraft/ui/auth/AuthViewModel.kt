@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.kafecraft.data.SessionManager
 import com.example.kafecraft.data.User
 import com.google.firebase.auth.FirebaseAuth
@@ -90,6 +91,24 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
                 isLoading = false
                 error = it.message
             }
+    }
+    fun changePassword(newPass: String) {
+        isLoading = true
+        auth.currentUser
+            ?.updatePassword(newPass)
+            ?.addOnSuccessListener {
+                isLoading = false
+                isSuccess = true
+            }
+            ?.addOnFailureListener {
+                isLoading = false
+                error = it.message ?: "Gagal ganti password"
+            }
+    }
+
+    class Factory(private val sessionManager: SessionManager) : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(modelClass: Class<T>) = AuthViewModel(sessionManager) as T
     }
 
 }
