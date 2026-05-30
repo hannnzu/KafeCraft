@@ -54,7 +54,7 @@ class HomeViewModel(
         })
     }
 
-    private fun fetchComment(recipeId: String){
+    fun fetchComment(recipeId: String){
         commentsRef.child(recipeId).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 comments = snapshot.children.mapNotNull { it.getValue(Comment::class.java)}
