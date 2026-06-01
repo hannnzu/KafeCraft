@@ -63,6 +63,31 @@ fun CreateEditRecipeScreen(
         },
         onCancelClick = onNavigateBack
     )
+
+    if (showDeleteDialog && existingRecipe != null) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Hapus Resep?", fontWeight = FontWeight.Bold) },
+            text = { Text("Resep ini akan dihapus permanen dan tidak bisa dikembalikan.") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        viewModel.deleteRecipe(recipeId)
+                        showDeleteDialog = false
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD32F2F))
+                ) {
+                    Text("Hapus")
+                }
+            },
+            dismissButton = {
+                OutlinedButton(onClick = { showDeleteDialog = false }) {
+                    Text("Batal", color = Color(0xFF332211))
+                }
+            },
+            containerColor = Color.White
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
