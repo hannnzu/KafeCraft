@@ -103,7 +103,85 @@ fun CreateEditREcipeContent(
     onSaveClick: () -> Unit,
     onCancelClick: () -> Unit
 ) {
+    val fieldColors = OutlinedTextFieldDefaults.colors(
+        focusedBorderColor = Color(0xFFFF7A45),
+        unfocusedBorderColor = Color(0xFFE0E0E0),
+        focusedContainerColor = Color.White,
+        unfocusedContainerColor = Color.White
+    )
 
+    Column(
+        modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Icon(Icons.Default.ArrowBack, contentDescription = "Back", modifier = Modifier.size(24.dp).clickable { onCancelClick() })
+            Text(
+                if (isEditMode) "Edit Resep" else "Buat Resep",
+                fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(0xFF332211)
+            )
+            if (isEditMode) {
+                Icon(
+                    Icons.Outlined.Delete,
+                    contentDescription = "Delete",
+                    tint = Color(0xFFD32F2F),
+                    modifier = Modifier.size(24.dp).clickable { onDeleteClick() }
+                )
+            } else {
+                Spacer(Modifier.size(24.dp))
+            }
+        }
+        Spacer(Modifier.height(24.dp))
+        Text("Nama Resep", fontWeight = FontWeight.Bold, color = Color(0xFF332211))
+        Spacer(Modifier.height(8.dp))
+        OutlinedTextField(
+            value = title,
+            onValueChange = onTitleChange,
+            placeholder = { Text("Nasi Goreng Spesial") },
+            modifier = Modifier.fillMaxWidth(),
+            colors = fieldColors
+        )
+        Spacer(Modifier.height(16.dp))
+        Text("Deskripsi", fontWeight = FontWeight.Bold, color = Color(0xFF332211))
+        Spacer(Modifier.height(8.dp))
+        OutlinedTextField(
+            value = description,
+            onValueChange = onDescriptionChange,
+            placeholder = { Text("Ceritakan tentang resep ini...") },
+            modifier = Modifier.fillMaxWidth().height(150.dp),
+            colors = fieldColors
+        )
+        Spacer(Modifier.height(32.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Button(
+                onClick = onCancelClick,
+                modifier = Modifier.weight(1f).height(50.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEFEBE9))
+            ) {
+                Text("Batal", color = Color(0xFF332211), fontWeight = FontWeight.Bold)
+            }
+            Button(
+                onClick = onSaveClick,
+                modifier = Modifier.weight(1f).height(50.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7A45)),
+                enabled = !isSaving
+            ) {
+                if (isSaving) {
+                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(24.dp))
+                } else {
+                    Text("Simpan Perubahan", fontWeight = FontWeight.Bold)
+                }
+            }
+        }
+    }
 }
 
 @Preview()
