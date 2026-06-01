@@ -43,7 +43,7 @@ fun CreateEditRecipeScreen(
         }
     }
 
-    CreateEditREcipeContent(
+    CreateEditRecipeContent(
         isEditMode = isEditMode,
         title = title,
         onTitleChange = { title = it },
@@ -92,7 +92,7 @@ fun CreateEditRecipeScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateEditREcipeContent(
+fun CreateEditRecipeContent(
     isEditMode: Boolean,
     title: String,
     onTitleChange: (String) -> Unit,
@@ -184,8 +184,20 @@ fun CreateEditREcipeContent(
     }
 }
 
-@Preview()
+@Preview(showBackground = true)
 @Composable
 fun CreateEditRecipeScreenPreview() {
-
+    MaterialTheme {
+        CreateEditRecipeContent(
+            isEditMode = false,
+            title = "Nasi Goreng",
+            onTitleChange = {},
+            description = "Nasi goreng ayam",
+            onDescriptionChange = {},
+            isSaving = false,
+            onDeleteClick = {},
+            onSaveClick = {},
+            onCancelClick = {}
+        )
+    }
 }
