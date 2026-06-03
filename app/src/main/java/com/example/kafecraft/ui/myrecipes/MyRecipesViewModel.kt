@@ -23,9 +23,9 @@ class MyRecipesViewModel(private val sessiaonManager : SessionManager) : ViewMod
     var isSaving by mutableStateOf(false)
     var saveMessage by mutableStateOf<String?>(null)
 
-    init { fetchMyReipes() }
+    init { fetchMyRecipes() }
 
-    fun fetchMyReipes(){
+    fun fetchMyRecipes(){
         val uid = sessiaonManager.getUserId()
         if (uid == null) {
              isLoading = false
