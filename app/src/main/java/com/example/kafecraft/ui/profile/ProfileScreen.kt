@@ -70,7 +70,6 @@ fun ProfileScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileContent(
     userName: String,
@@ -83,7 +82,6 @@ fun ProfileContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
             .background(MaterialTheme.colorScheme.background)
     ) {
         Row(
@@ -108,7 +106,8 @@ fun ProfileContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 32.dp, bottom = 16.dp)
+                .padding(top = 32.dp, bottom = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
                 contentAlignment = Alignment.BottomEnd,

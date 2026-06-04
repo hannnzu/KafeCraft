@@ -23,6 +23,8 @@ class MainActivity : ComponentActivity() {
     private lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+        sessionManager = SessionManager(this)
         enableEdgeToEdge()
         setContent {
             KafeCraftTheme {
