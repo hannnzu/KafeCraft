@@ -101,7 +101,7 @@ fun ProfileContent(
                 Text("Keluar", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFFD32F2F))
             }
         }
-        HorizontalDivider(color = Color(0xFFD32F2F))
+        HorizontalDivider(color = Color(0xFFF5E6E0))
 
         Column(
             modifier = Modifier
@@ -134,11 +134,13 @@ fun ProfileContent(
             }
         }
         Box(modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp), contentAlignment = Alignment.Center) {
-            HorizontalDivider(color = Color(0xFFF5E6E0))
             Box(modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp), contentAlignment = Alignment.Center) {
                 Text("My Bookmark", fontSize = 14.sp, color = Color(0xFFFF7A45), fontWeight = FontWeight.Medium)
             }
+
         }
+        HorizontalDivider(color = Color(0xFFFF7A45))
+        Spacer(Modifier.height(16.dp))
         if (bookmarks.isEmpty()) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
                 Text("Belum ada resep y")
