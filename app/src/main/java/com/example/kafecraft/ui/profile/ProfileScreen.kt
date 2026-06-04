@@ -1,10 +1,13 @@
 package com.example.kafecraft.ui.profile
 
+import android.R
+import android.media.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,9 +16,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.ExitToApp
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,7 +38,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kafecraft.data.BookmarkEntity
@@ -58,6 +70,7 @@ fun ProfileScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileContent(
     userName: String,
@@ -118,8 +131,75 @@ fun ProfileContent(
             Spacer(Modifier.height(24.dp))
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(postCount.toString(), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(0xFF332211))
-                Text("Post", fontSize = 14.sp, color = Color.Gray)
+                Text("Posts", fontSize = 14.sp, color = Color.Gray)
             }
         }
+        Box(modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp), contentAlignment = Alignment.Center) {
+            HorizontalDivider(color = Color(0xFFF5E6E0))
+            Box(modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp), contentAlignment = Alignment.Center) {
+                Text("My Bookmark", fontSize = 14.sp, color = Color(0xFFFF7A45), fontWeight = FontWeight.Medium)
+            }
+        }
+        if (bookmarks.isEmpty()) {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+                Text("Belum ada resep y")
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                items(bookmarks) { bookmark ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {onNavigateToDetail(bookmark.recipesId)},
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White),
+                        elevation = CardDefaults.cardElevation(1.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = bookmark.title,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color(0xFF332211)
+                            )
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                contentDescription = null,
+                                tint = Color(0xFFFF7A45),
+                            )
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun ProfileContentPreview() {
+    val dummyBookmarks = listOf(
+        BookmarkEntity("1", "Nasi Goreng Pataya", "Nasi Goreng Dalam Telur", "Haik"),
+        BookmarkEntity("2", "Nasi Goreng Mawut", "Nasi Goreng Diawut", "Haik")
+    )
+    MaterialTheme{
+        ProfileContent(
+            userName = "Budi",
+            userHandle = "@budisantoso",
+            postCount = 5,
+            bookmarks = dummyBookmarks,
+            onLogoutClick = {},
+            onNavigateToDetail = {}
+        )
     }
 }
