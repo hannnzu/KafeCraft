@@ -11,7 +11,6 @@ import com.example.kafecraft.data.BookmarkEntity
 import com.example.kafecraft.data.Comment
 import com.example.kafecraft.data.Recipe
 import com.example.kafecraft.data.SessionManager
-import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
