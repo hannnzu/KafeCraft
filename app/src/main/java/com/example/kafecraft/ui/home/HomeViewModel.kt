@@ -35,6 +35,8 @@ class HomeViewModel(
     val bookmarks = bookmarkDao.getALLBookmarks()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    init { fetchRecipes() }
+
     private fun fetchRecipes(){
         isLoading = true
         recipesRef.addValueEventListener(object : ValueEventListener{

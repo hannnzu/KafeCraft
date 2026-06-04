@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.kelompoksatu.kafecraft"
+    namespace = "com.example.kafecraft"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.kelompoksatu.kafecraft"
+        applicationId = "com.example.kafecraft"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
