@@ -58,7 +58,7 @@ fun ProfileScreen(
 ) {
     val bookmarks by homeViewModel.bookmarks.collectAsState()
     val userName = sessionManager.getUserName() ?: "User"
-    val userHandle = "@${userName.lowercase().replace("","")}"
+    val userHandle = "@${userName.lowercase().replace(" ", "")}"
 
     ProfileContent(
         userName = userName,
@@ -143,7 +143,7 @@ fun ProfileContent(
         Spacer(Modifier.height(16.dp))
         if (bookmarks.isEmpty()) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-                Text("Belum ada resep y")
+                Text("Belum ada resep yang terdaftar di daftar bookmark.")
             }
         } else {
             LazyColumn(
