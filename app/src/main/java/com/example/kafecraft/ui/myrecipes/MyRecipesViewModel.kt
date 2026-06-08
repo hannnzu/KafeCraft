@@ -101,7 +101,7 @@ class MyRecipesViewModel(private val sessiaonManager : SessionManager) : ViewMod
         recipeRef.child(recipeId).removeValue()
             .addOnSuccessListener {
                 isSaving = false
-                saveMessage = "Resep berhasil disimpan"
+                saveMessage = "Resep berhasil dihapus"
             }
             .addOnFailureListener {
                 isSaving = false
