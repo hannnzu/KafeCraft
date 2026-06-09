@@ -87,10 +87,24 @@ private fun ChangePasswordContent(
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(32.dp))
+
+
         OutlinedTextField(
             value = newPassword,
             onValueChange = {newPassword = it},
             label = {Text("Password Baru")},
+            placeholder = {Text("Minimal 6 Karakter")},
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            colors = fieldColors
+        )
+
+        OutlinedTextField(
+            value = confirmPassword,
+            onValueChange = {confirmPassword = it},
+            label = {Text("Confirm Password")},
             placeholder = {Text("Minimal 6 Karakter")},
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),

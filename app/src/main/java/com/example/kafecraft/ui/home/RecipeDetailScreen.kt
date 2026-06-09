@@ -48,7 +48,7 @@ fun RecipeDetailScreen(
             timestamp = 0L
         )
     } else null
-
+//
     if (recipe == null) {
         Box(Modifier.fillMaxSize().background(Color(0xFFFEF9F6)), contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {

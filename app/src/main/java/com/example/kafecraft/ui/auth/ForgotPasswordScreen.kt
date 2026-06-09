@@ -72,7 +72,7 @@ private fun ForgotPasswordContent(
         Icon(
         Icons.Default.ArrowBack,
             contentDescription = "Back",
-            modifier = Modifier.align(Alignment.Start).size(24.dp).clickable{onNavigateBack}
+            modifier = Modifier.align(Alignment.Start).size(24.dp).clickable{onNavigateBack()}
     )
         Spacer(Modifier.height(32.dp))
         Text("Lupa Password?")
@@ -80,7 +80,7 @@ private fun ForgotPasswordContent(
         OutlinedTextField(
             value = email,
             onValueChange = {email = it},
-            label = { Text("Enail")},
+            label = { Text("Email")},
             placeholder = {Text("nama@email.com")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             modifier = Modifier.fillMaxWidth(),
