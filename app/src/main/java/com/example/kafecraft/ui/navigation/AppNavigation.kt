@@ -77,7 +77,7 @@ fun AppNavigation(sessionManager: SessionManager) {
                 myRecipesViewModel = myRecipesViewModel,
                 rootNavController = navController
             ) {
-                // Logout Logic
+                // Logout Logic (isi dari parameter onLogout)
                 FirebaseAuth.getInstance().signOut()
                 sessionManager.logout()
                 navController.navigate("login") { popUpTo(0) }
